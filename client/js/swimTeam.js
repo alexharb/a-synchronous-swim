@@ -1,3 +1,4 @@
+
 const SwimTeam = {
 
   // direction, start and max all need to match the CSS
@@ -56,3 +57,26 @@ const SwimTeam = {
   }
 
 };
+
+var randomMovement = () => {
+    // Fetch.fetch((data) => {
+    //   setTimeout(() => {
+    //       SwimTeam.direction = data;
+    //       SwimTeam.move(SwimTeam.direction)}, 1000)
+    // }
+    Fetch.fetch( (data) => {
+      data.forEach((each) => {
+        setTimeout(() => {
+          SwimTeam.direction = each;
+          SwimTeam.move(SwimTeam.direction)}, 100)
+      })
+    }
+    // Fetch.fetch( (data) => {
+    //   data.forEach((each) => setTimeout( () => {
+    //     SwimTeam.direction = each;
+    //     SwimTeam.move(SwimTeam.direction)
+    //   }, 1000)
+    //   )
+    // }
+  )
+}
