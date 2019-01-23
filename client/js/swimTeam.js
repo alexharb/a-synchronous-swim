@@ -4,19 +4,22 @@ const SwimTeam = {
   // direction, start and max all need to match the CSS
   direction: 'left',
   coords: { top: 100, left: 100 },
-  max: { top: 0, left: 0, bottom: 295, right: 240 },
+  max: { top: 0, left: 0, bottom: 295, right: 500 },
+  angle: 0,
 
   move: (direction) => {
     if (!direction) { return; }
     console.log(`Lets go: ${direction}`);
 
     // set the swim-team's direction
-    $('.swimmer')
+
+    /* $('.swimmer')
       .removeClass((idx, classNames) => {
         var name = classNames.match(/(turn-\w+)/);
         return name && name[1];
       })
       .addClass(`turn-${direction}`);
+    */
 
     // same direction as last time? -> if yes, move the swim-team
     if (SwimTeam.direction === direction) {
@@ -35,22 +38,26 @@ const SwimTeam = {
     switch (direction) {
     case 'up':
       if (SwimTeam.coords.top > SwimTeam.max.top) {
-        SwimTeam.coords.top -= 5;
+        SwimTeam.coords.top -= Math.sin(SwimTeam.angle * Math.PI / 180) * 5;
+        SwimTeam.coords.left -= Math.cos(SwimTeam.angle * Math.PI / 180) * 5;
       }
       break;
     case 'down':
       if (SwimTeam.coords.top < SwimTeam.max.bottom) {
-        SwimTeam.coords.top += 5;
+        SwimTeam.coords.top += Math.sin(SwimTeam.angle * Math.PI / 180) * 5;
+        SwimTeam.coords.left += Math.cos(SwimTeam.angle * Math.PI / 180) * 5;
       }
       break;
     case 'left':
       if (SwimTeam.coords.left > SwimTeam.max.left) {
-        SwimTeam.coords.left -= 5;
+        SwimTeam.angle-=3;
+        $('.team').css({'transform' : 'rotate(' + SwimTeam.angle + 'deg)'});
       }
       break;
     case 'right':
       if (SwimTeam.coords.left < SwimTeam.max.right) {
-        SwimTeam.coords.left += 5;
+        SwimTeam.angle+=3;
+        $('.team').css({'transform' : 'rotate(' + SwimTeam.angle + 'deg)'});
       }
       break;
     } 
